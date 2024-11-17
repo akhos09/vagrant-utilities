@@ -12,9 +12,13 @@ A collection of configuration files and a script that are used with Vagrant.
 
 The script and the config files requires the following libraries and tools:
 1.- **Virtual Box**: Hypervisor used for the creation of the VMs.
+
 2. **Vagrant**: Obviously needed for all of this. 
+
 3. **os**: A module needed to change the working path.
+
 4. **subproccess**: A module to run the powershell commands of Vagramt.
+
 5. **Tkinter**: For the file dialog to select `.wav` files.
 
 ## Installation
