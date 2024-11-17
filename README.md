@@ -46,9 +46,11 @@ The script and the config files requires the following libraries and tools:
    Select the Vagrantfile using the second option of the script.
 
 3. **List all the vagrant machines**
+
    Use the first option of the script.
 
-4. **Delete a vagrant machine**
+5. **Delete a vagrant machine**
+
    Use the second option of the script and enter the ID of the machine (the one shown in the first option)
 
 ## Troubleshooting
