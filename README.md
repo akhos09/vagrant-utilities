@@ -11,6 +11,7 @@ A collection of configuration files and a script that are used with Vagrant.
 ## Dependencies
 
 The script and the config files requires the following libraries and tools:
+
 1.- **Virtual Box**: Hypervisor used for the creation of the VMs.
 
 2. **Vagrant**: Obviously needed for all of this. 
