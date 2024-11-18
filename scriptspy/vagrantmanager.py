@@ -74,7 +74,7 @@ def case():
 
 def check():
     try:
-        import pick
+        import axa
         case()
     except ImportError as e:
         print('---------------------------------------------------------------------')
@@ -91,6 +91,7 @@ def check():
             print('Installing the module pick...')
             proc2 = subprocess.getoutput(["powershell", "-command", f"{command}"])
             print(proc2)
+            print('Installation completed. Execute the script again with pick installed.')
         else:
             print('Exiting...')
 check()
