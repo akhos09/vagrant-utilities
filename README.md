@@ -42,7 +42,7 @@ The script and the config files requires the following libraries and tools:
 
 2. **Run the script**:
 
-Open a terminal or command prompt and navigate to the directory containing the script. Run the following command:
+   Open a terminal or command prompt and navigate to the directory containing the script. Run the following command:
 
    ```
    python vagrantmanager.py
@@ -50,18 +50,18 @@ Open a terminal or command prompt and navigate to the directory containing the s
 
 3. **Import the Vagrant file**
 
-Select the Vagrantfile using the second option of the script.
+   Select the Vagrantfile using the second option of the script.
 
 4. **List all the vagrant machines**
 
-Use the first option of the script.
+   Use the first option of the script.
 
 5. **Delete a vagrant machine**
 
- Use the second option of the script and enter the ID of the machine (the one shown in the first option)
+    Use the second option of the script and enter the ID of the machine (the one shown in the first option)
 
 ## Troubleshooting
-- Make sure that `Python` and `Vagrant` are installed and updated.
+   - Make sure that `Python` and `Vagrant` are installed and updated.
   
 ## License
 
