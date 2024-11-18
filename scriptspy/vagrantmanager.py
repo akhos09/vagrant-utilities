@@ -80,5 +80,17 @@ def check():
         print('---------------------------------------------------------------------')
         print('Module named "pick" not found. Please install pick (pip install pick)')
         print('---------------------------------------------------------------------')
-        
+        yesno = str(input('Do you want to install it? (y/n): '))
+        if yesno == 'y':
+            act = 'python.exe -m pip install --upgrade pip'
+            print('Updating pip...')
+            proc1 = subprocess.getoutput(["powershell", "-command", f"{act}"])
+            print(proc1)
+            command = 'pip install pick'
+            print ('-----------------------------')
+            print('Installing the module pick...')
+            proc2 = subprocess.getoutput(["powershell", "-command", f"{command}"])
+            print(proc2)
+        else:
+            print('Exiting...')
 check()
