@@ -27,25 +27,29 @@ def create():
     print('The installation of the machine will be running in the background. Please wait until it finishes...')
     proc = subprocess.getoutput(["powershell", "-command", f"{command}"])
     print(proc)
-
+    
 def delete():
     id_name_machine = (input('ID of the machine to be deleted: '))
     result = subprocess.getoutput(f"vagrant destroy {id_name_machine} -f")
     print(result)
-
+    
 print('----Welcome to the managment script for Vagrant----')
 print('1) List all the Vagrant machines')
 print('2) Create a Vagrant machine using a Vagrantfile')
 print('3) Delete a Vagrant machine (using the id)')
+print('4) Exit')
 print('---------------------------------------------------')
-option = int(input('Select an option (1-3): '))
 
-if option == 1:
-    status()
-elif option == 2:
-    create()
-elif option == 3:
-    delete()
+option = int(input('Select an option (1-4): '))
+while option != 4:
+    if option != range(1,4):
+        print('Please execute again the script and select a correct option. (1-4)')
+        break
+    elif option == 1:
+            status()
+    elif option == 2:
+            create()
+    elif option == 3:
+                delete()
 else:
-    print('Please select a correct option.')
-
+    print('Exiting...')
