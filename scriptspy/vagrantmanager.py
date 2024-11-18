@@ -26,7 +26,7 @@ def create():
     os.chdir(f'{folder_selected}')
     command = 'vagrant up'
     print('The installation of the machine will be running in the background. Please wait until it finishes...')
-    proc = subprocess.getoutput(["powershell", "-command", f"{command}"])
+    proc = subprocess.run(["powershell", "-command", f"{command}"])
     print(proc)
 
 def delete():
@@ -71,5 +71,12 @@ def case():
         exit
     else:
         print('Please select a correct option.')
+
+def check():
+    try:
+        import pick
+        case()
+    except ImportError as e:
+        print('Module named "pick" not found. Please install pick (pip install pick)')
         
-case()
+check()
