@@ -33,19 +33,40 @@ def delete():
     id_name_machine = (input('ID of the machine to be deleted: '))
     result = subprocess.getoutput(f"vagrant destroy {id_name_machine} -f")
     print(result)
+    
+def case():
+    title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
+    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Exit']
+    option, index = pick(options, title, indicator='=>', default_index=2)
+    
+    if option == '1) List all the Vagrant machines':
+        status()
+        yesno = str(input('Do you want to exit the script? (y/n): '))
+        if yesno == 'n':
+            case()
+        else:
+            print ('Exiting...')
+            exit
+    elif option == '2) Create a Vagrant machine using a Vagrantfile':
+        create()
+        yesno = str(input('Do you want to exit the script? (y/n): '))
+        if yesno == 'n':
+            case()
+        else:
+            print ('Exiting...')
+            exit
+    elif option == '3) Delete a Vagrant machine (using the id)':
+        delete()
+        yesno = str(input('Do you want to exit the script? (y/n): '))
+        if yesno == 'n':
+            case()
+        else:
+            print ('Exiting...')
+            exit
+    elif option == '4) Exit':
+        print('Exiting...')
+        exit
+    else:
+        print('Please select a correct option.')
 
-#MENU
-title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
-options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Exit']
-option, index = pick(options, title, indicator='=>', default_index=2)
-
-if option == '1) List all the Vagrant machines':
-    status()
-elif option == '2) Create a Vagrant machine using a Vagrantfile':
-    create()
-elif option == '3) Delete a Vagrant machine (using the id)':
-    delete()
-elif option == '4) Exit':
-    print('Exiting...')
-else:
-    print('Please select a correct option.')
+case()
