@@ -5,7 +5,7 @@ import subprocess
 import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
-    
+
 def status():
     command = 'vagrant global-status'
     print('Showing all the machines of the system...')
@@ -37,12 +37,13 @@ def delete():
 def case():
     title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
     options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Exit']
-    option, index = pick(options, title, indicator='=>', default_index=2)
+    option, index = pick(options, title, indicator='=>', default_index=1)
     
     if option == '1) List all the Vagrant machines':
         status()
         yesno = str(input('Do you want to exit the script? (y/n): '))
         if yesno == 'n':
+            subprocess.run("cls",shell=True)
             case()
         else:
             print ('Exiting...')
@@ -51,6 +52,7 @@ def case():
         create()
         yesno = str(input('Do you want to exit the script? (y/n): '))
         if yesno == 'n':
+            subprocess.run("cls",shell=True)
             case()
         else:
             print ('Exiting...')
@@ -59,6 +61,7 @@ def case():
         delete()
         yesno = str(input('Do you want to exit the script? (y/n): '))
         if yesno == 'n':
+            subprocess.run("cls",shell=True)
             case()
         else:
             print ('Exiting...')
@@ -68,5 +71,5 @@ def case():
         exit
     else:
         print('Please select a correct option.')
-
+        
 case()
