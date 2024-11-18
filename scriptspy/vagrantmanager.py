@@ -37,7 +37,7 @@ def delete():
 def case():
     title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
     options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Exit']
-    option, index = pick(options, title, indicator='=>', default_index=1)
+    option, index = pick(options, title, indicator='=>', default_index=0)
     
     if option == '1) List all the Vagrant machines':
         status()
@@ -77,6 +77,8 @@ def check():
         import pick
         case()
     except ImportError as e:
+        print('---------------------------------------------------------------------')
         print('Module named "pick" not found. Please install pick (pip install pick)')
+        print('---------------------------------------------------------------------')
         
 check()
