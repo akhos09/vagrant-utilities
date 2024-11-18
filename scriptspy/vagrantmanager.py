@@ -1,5 +1,6 @@
 # SCRIPT VAGRANT PYTHON MANAGEMENT
 import os
+from pick import pick
 import subprocess
 import tkinter
 from tkinter import filedialog as fd
@@ -27,29 +28,24 @@ def create():
     print('The installation of the machine will be running in the background. Please wait until it finishes...')
     proc = subprocess.getoutput(["powershell", "-command", f"{command}"])
     print(proc)
-    
+
 def delete():
     id_name_machine = (input('ID of the machine to be deleted: '))
     result = subprocess.getoutput(f"vagrant destroy {id_name_machine} -f")
     print(result)
-    
-print('----Welcome to the managment script for Vagrant----')
-print('1) List all the Vagrant machines')
-print('2) Create a Vagrant machine using a Vagrantfile')
-print('3) Delete a Vagrant machine (using the id)')
-print('4) Exit')
-print('---------------------------------------------------')
 
-option = int(input('Select an option (1-4): '))
-while option != 4:
-    if option != range(1,4):
-        print('Please execute again the script and select a correct option. (1-4)')
-        break
-    elif option == 1:
-            status()
-    elif option == 2:
-            create()
-    elif option == 3:
-                delete()
-else:
+#MENU
+title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
+options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Exit']
+option, index = pick(options, title, indicator='=>', default_index=2)
+
+if option == '1) List all the Vagrant machines':
+    status()
+elif option == '2) Create a Vagrant machine using a Vagrantfile':
+    create()
+elif option == '3) Delete a Vagrant machine (using the id)':
+    delete()
+elif option == '4) Exit':
     print('Exiting...')
+else:
+    print('Please select a correct option.')
