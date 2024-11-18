@@ -34,7 +34,7 @@ The script and the config files requires the following libraries and tools:
    ```
 
 ## Usage
-1.**Install pick**
+1.**Install pick (or use the build-in function of the script that installs it)**
 
    ```
    pip install pick
