@@ -1,6 +1,6 @@
 # Vagrant Utilities
 
-A collection of configuration files and a script that are used with Vagrant.
+A collection of configuration files and a script that are used with Vagrant in Windows 11.
 
 ## Table of Contents
 - [Dependencies](#dependencies)
@@ -14,13 +14,15 @@ The script and the config files requires the following libraries and tools:
 
 1.- **Virtual Box**: Hypervisor used for the creation of the VMs.
 
-2. **Vagrant**: Obviously needed for all of this. 
+2. **Vagrant**: Obviously needed for all of this.
 
-3. **os**: A module needed to change the working path.
+3.**pick**: Module needed for the menu. 
 
-4. **subproccess**: A module to run the powershell commands of Vagramt.
+4. **os**: A module needed to change the working path.
 
-5. **Tkinter**: For the file dialog to select `.wav` files.
+5. **subproccess**: A module to run the powershell commands of Vagramt.
+
+6. **Tkinter**: For the file dialog to select `.wav` files.
 
 ## Installation
 
@@ -32,8 +34,13 @@ The script and the config files requires the following libraries and tools:
    ```
 
 ## Usage
+1.**Install pick**
 
-1. **Run the script**:
+   ```
+   pip install pick
+   ```
+
+2. **Run the script**:
 
    Open a terminal or command prompt and navigate to the directory containing the script. Run the following command:
 
