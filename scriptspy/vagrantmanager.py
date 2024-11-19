@@ -29,6 +29,8 @@ def create():
         print(path, end="")
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def delete():
+    status()
+    print('------------------------------------------------')
     id_name_machine = (input('ID of the machine to be deleted: '))
     result = subprocess.getoutput(f"vagrant destroy {id_name_machine} -f")
     print(result)
@@ -49,14 +51,6 @@ def case():
             
     elif option == '2) Create a Vagrant machine using a Vagrantfile':
         create()
-        yesno = str(input('Do you want to exit the script? (y/n): '))
-        if yesno == 'n':
-            subprocess.run("cls",shell=True)
-            case()
-        else:
-            print ('Exiting...')
-            exit
-            
     elif option == '3) Delete a Vagrant machine (using the id)':
         delete()
         yesno = str(input('Do you want to exit the script? (y/n): '))
@@ -105,4 +99,3 @@ def execute(cmd):
         raise subprocess.CalledProcessError(return_code, cmd)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 check()
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------
