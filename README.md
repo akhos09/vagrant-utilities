@@ -25,8 +25,7 @@ The script and the config files requires the following libraries and tools:
 6. **Tkinter**: For the file dialog to select the directory that contains the Vagrantfile.
 
 ## Installation
-
-1. Clone this repository:
+1.**Clone this repository:**
 
    ```
    git clone https://github.com/akhos09/vagrant-utilities
