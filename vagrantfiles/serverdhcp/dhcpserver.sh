@@ -51,9 +51,9 @@ configure_dhcp_server(){
    echo -e "\n$config_dhcp" | sudo tee -a "$config_file" > /dev/null
 
       echo "DHCP configuration updated in $config_file."
-      sudo service isc-dhcp-server restart
-      sudo service isc-dhcp-server status
+   
    done
+   
 }
 
 install_dhcp_server
