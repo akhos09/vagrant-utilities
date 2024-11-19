@@ -18,9 +18,6 @@ install_dhcp_server(){
    else
        echo "Error: $config_file doesn't exist."
    fi
-   service isc-dhcp-server restart
-   sudo ifconfig $ens down
-   sudo ifconfig $ens up
 }
 
 configure_dhcp_server(){
@@ -49,14 +46,9 @@ configure_dhcp_server(){
    echo "max-lease-time 7200;" | sudo tee -a "$config_file" > /dev/null
    echo "ddns-update-style none;" | sudo tee -a "$config_file" > /dev/null
    echo -e "\n$config_dhcp" | sudo tee -a "$config_file" > /dev/null
-
-      echo "DHCP configuration updated in $config_file."
-   
-   done
-   
+   echo "DHCP configuration updated in $config_file."
 }
 
 install_dhcp_server
 
 configure_dhcp_server
-
