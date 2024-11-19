@@ -15,7 +15,9 @@ Vagrant.configure("2") do |config|
   #dhcp.vm.provision "shell", path: "guestadditions.sh"
   dhcp.vm.provision "shell", path: "dhcpserver.sh"
   dhcp.vm.provision "shell", inline: <<SHELL
+  sudo sysctl -p
   echo -e "All the steps for the dhcp server has finished."
+  sudo reboot
 SHELL
 end
 end
