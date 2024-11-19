@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
   #dhcp.vm.network "public_network", ip: "172.19.200.67", netmask: "255.255.0.0", gateway: "172.19.0.254" #enp0s8
   dhcp.vm.network "public_network", ip: "172.19.200.67" #enp0s8
   dhcp.vm.network "private_network", ip: "10.33.200.1", netmask: "255.255.255.0", gateway: "172.19.0.67" #enp0s9
- 
   dhcp.vm.provider "virtualbox" do |vb| # vb as hypervisor
     vb.name ="serverdhcp"
     vb.gui = true 
@@ -31,9 +30,7 @@ config.vm.define "web" do |web|
     vb.gui = true 
     vb.memory = "4096"
     vb.cpus = 4
-  web.vm.provision "shell", inline: <<SHELL
-  echo -e "All the steps for the dhcp client has finished."
-SHELL
-    end
-  end
+  web.vm.provision "shell", path: "services.sh"
+end
+end
 end
