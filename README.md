@@ -22,7 +22,7 @@ The script and the config files requires the following libraries and tools:
 
 5. **subproccess**: A module to run the powershell commands of Vagramt.
 
-6. **Tkinter**: For the file dialog to select `.wav` files.
+6. **Tkinter**: For the file dialog to select the directory that contains the Vagrantfile.
 
 ## Installation
 
