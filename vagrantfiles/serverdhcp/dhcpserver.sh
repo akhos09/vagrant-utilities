@@ -13,7 +13,7 @@ routerfunc(){
 install_dhcp_server(){
    ens="enp0s9"
    sudo apt-get update && sudo apt-get upgrade -y
-   sudo apt-get install isc-dhcp-server
+   sudo apt-get install isc-dhcp-server -y
    echo -e "Copying the file isc-dhcp-server in /etc/default/isc-dhcp-server.copy..."
    sudo cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.copy
    
