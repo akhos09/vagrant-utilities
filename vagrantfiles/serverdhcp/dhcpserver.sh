@@ -5,11 +5,6 @@
 #:Date: 19/04/2024
 #:Dependencies:
 #:      - "ISC-DHCP-SERVER"
-routerfunc(){
-    sudo echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-    sudo sysctl -p
-    sudo iptables -t nat -A POSTROUTING -s 10.33.200.0/24 -o enp0s8 -j SNAT --to-source 172.19.200.67
-}
 install_dhcp_server(){
    ens="enp0s9"
    sudo apt-get update && sudo apt-get upgrade -y
@@ -29,6 +24,7 @@ install_dhcp_server(){
 }
 
 configure_dhcp_server(){
+    config_file="/etc/dhcp/dhcpd.conf"
     ens="enp0s9" 
     #MODIFY THIS AS YOU WANT
     subnet="10.33.200.0"
@@ -39,17 +35,6 @@ configure_dhcp_server(){
     range_end="10.33.200.100"
    
    #CHECK CONFIG FILES
-   config_file="/etc/dhcp/dhcpd.conf"
-   if [ ! -f "$config_file" ]; then
-       echo "Error: The $config_file doesn't exist."
-       exit 1
-   fi
-   config_file="/etc/default/isc-dhcp-server"
-   if [ -f "$config_file" ]; then
-       sudo sed -i "s/^INTERFACESv4=.*/INTERFACESv4=\"$ens\"/" "$config_file"
-   else
-       echo "Error: $config_file doesn't exist."
-   fi
 
    config_dhcp="subnet $subnet netmask $netmask {
      option routers $router;
@@ -73,8 +58,8 @@ configure_dhcp_server(){
    done
 }
 
-routerfunc
-
 install_dhcp_server
 
 configure_dhcp_server
+
+sudo service isc-dhcp-status
