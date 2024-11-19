@@ -51,10 +51,8 @@ configure_dhcp_server(){
    echo -e "\n$config_dhcp" | sudo tee -a "$config_file" > /dev/null
 
       echo "DHCP configuration updated in $config_file."
-
-      sudo systemctl restart isc-dhcp-server
-      sudo dhcp-lease-list --lease /var/lib/dhcp/dhcpd.leases | awk '{print $3}' | while read ip; do
-      ping -c 1 $ip &> /dev/null && ssh -o ConnectTimeout=2 $ip "sudo dhclient -r && sudo dhclient" &
+      sudo service isc-dhcp-server restart
+      sudo service isc-dhcp-server status
    done
 }
 
@@ -62,4 +60,3 @@ install_dhcp_server
 
 configure_dhcp_server
 
-sudo service isc-dhcp-status
