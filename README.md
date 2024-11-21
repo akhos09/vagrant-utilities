@@ -65,3 +65,7 @@ The script and the config files requires the following libraries and tools:
 ## License
 
 See the [LICENSE](LICENSE) file for details.
+
+## Credits
+
+For the ongoing output funcion made by the user tokland https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running, ty a lot mate
