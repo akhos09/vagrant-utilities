@@ -89,7 +89,7 @@ def check():
         else:
             print('Exiting...')
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def execute(cmd):
+def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running, ty a lot
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
     for stdout_line in iter(popen.stdout.readline, ""):
         yield stdout_line 
