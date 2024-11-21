@@ -68,4 +68,4 @@ See the [LICENSE](LICENSE) file for details.
 
 ## Credits
 
-For the ongoing output funcion made by the user tokland https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running, ty a lot mate
+For the ongoing output funcion made by the user tokland, ty a lot mate :) [StackOverflow](https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running)
