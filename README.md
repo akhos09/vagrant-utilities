@@ -1,6 +1,6 @@
 # Vagrant Utilities
 
-A collection of configuration files and a script that are used with Vagrant in Windows 11.
+A collection of configuration files and a script that are used with Vagrant on Windows 11.
 
 ## Table of Contents
 - [Dependencies](#dependencies)
