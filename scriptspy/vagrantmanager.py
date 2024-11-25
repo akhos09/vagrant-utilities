@@ -1,4 +1,5 @@
-# SCRIPT VAGRANT PYTHON MANAGEMENT
+# SCRIPT VAGRANT-MANAGEMENT
+#V1.0
 from __future__ import print_function
 import os
 from pick import pick
@@ -92,7 +93,7 @@ def check():
 def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running, ty a lot
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
     for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line 
+        yield stdout_line
     popen.stdout.close()
     return_code = popen.wait()
     if return_code:
