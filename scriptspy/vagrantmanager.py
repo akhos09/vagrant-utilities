@@ -38,7 +38,7 @@ def delete():
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def case():
     title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
-    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Exit']
+    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Repack a virtual machine from VirtualBox','5) Exit']
     option, index = pick(options, title, indicator='=>', default_index=0)
     if option == '1) List all the Vagrant machines':
         status()
@@ -61,7 +61,16 @@ def case():
         else:
             print ('Exiting...')
             exit
-    elif option == '4) Exit':
+    elif option == '4) Repack a virtual machine from VirtualBox':
+        repack()
+        yesno = str(input('Do you want to exit the script? (y/n): '))
+        if yesno == 'n':
+            subprocess.run("cls",shell=True)
+            case()
+        else:
+            print ('Exiting...')
+            exit
+    elif option == '5) Exit':
         print('Exiting...')
         exit
     else:
@@ -99,4 +108,6 @@ def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546
     if return_code:
         raise subprocess.CalledProcessError(return_code, cmd)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def repack():
+    print('hello')
 check()
