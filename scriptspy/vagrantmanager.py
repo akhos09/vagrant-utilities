@@ -111,4 +111,7 @@ def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def repack():
     print('hello')
+    box = "trusty64" 
+    command = f"vagrant repack {box}"
+    print (f'{command}')
 check()
