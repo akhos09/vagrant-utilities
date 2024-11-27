@@ -114,4 +114,5 @@ def repack():
     box = "trusty64" 
     command = f"vagrant repack {box}"
     print (f'{command}')
+    print ('testeo bansero')
 check()
