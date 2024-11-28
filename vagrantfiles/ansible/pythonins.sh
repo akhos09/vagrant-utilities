@@ -1,4 +1,5 @@
 #!/bin/bash
-sudo apt-get install python3
+sudo apt-get update -y
+sudo apt-get install -y python3 python3-pip
 python3 --version
-python3 -m pip -V
+pip3 --version
