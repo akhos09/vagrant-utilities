@@ -6,3 +6,4 @@ pipx ensurepath
 pip3 install ansible --user
 sudo ssh-keygen -t rsa -b 2048 -f keysshnodemaster
 sudo reboot
+#all changes here
