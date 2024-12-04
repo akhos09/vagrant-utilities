@@ -8,33 +8,28 @@ import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def status():
-    command = 'vagrant global-status'
-    print('Showing all the machines of the system...')
-    proc = subprocess.getoutput(["powershell", "-command", f"{command}"])
-    print(proc)
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def select_file():
-    print('Please select the directory where the Vagrantfile is located at:  ')
-    root = tkinter.Tk()
-    root.withdraw()
-    root.wm_attributes('-topmost', 1)
-    folder_selected = fd.askdirectory()
-    root.destroy()
-    return folder_selected
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def create():
-    folder_selected = select_file()
-    os.chdir(f'{folder_selected}') 
-    for path in execute(["vagrant","up"]):
-        print(path, end="")
-#------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def delete():
-    status()
-    print('------------------------------------------------')
-    id_name_machine = (input('ID of the machine to be deleted: '))
-    result = subprocess.getoutput(f"vagrant destroy {id_name_machine} -f")
-    print(result)
+def check():
+    try:
+        import pick
+        case()
+    except ImportError as e:
+        print('---------------------------------------------------------------------')
+        print('Module named "pick" not found. Please install pick (pip install pick)')
+        print('---------------------------------------------------------------------')
+        yesno = str(input('Do you want to install it? (y/n): '))
+        if yesno == 'y':
+            act = 'python.exe -m pip install --upgrade pip'
+            print('Updating pip...')
+            proc1 = subprocess.getoutput(["powershell", "-command", f"{act}"])
+            print(proc1)
+            command = 'pip install pick'
+            print ('-----------------------------')
+            print('Installing the module pick...')
+            proc2 = subprocess.getoutput(["powershell", "-command", f"{command}"])
+            print(proc2)
+            print('Installation completed. Execute the script again with pick installed.')
+        else:
+            print('Exiting...')
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def case():
     title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
@@ -77,28 +72,33 @@ def case():
         print('Please select a correct option.')
         case()
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def check():
-    try:
-        import pick
-        case()
-    except ImportError as e:
-        print('---------------------------------------------------------------------')
-        print('Module named "pick" not found. Please install pick (pip install pick)')
-        print('---------------------------------------------------------------------')
-        yesno = str(input('Do you want to install it? (y/n): '))
-        if yesno == 'y':
-            act = 'python.exe -m pip install --upgrade pip'
-            print('Updating pip...')
-            proc1 = subprocess.getoutput(["powershell", "-command", f"{act}"])
-            print(proc1)
-            command = 'pip install pick'
-            print ('-----------------------------')
-            print('Installing the module pick...')
-            proc2 = subprocess.getoutput(["powershell", "-command", f"{command}"])
-            print(proc2)
-            print('Installation completed. Execute the script again with pick installed.')
-        else:
-            print('Exiting...')
+def status():
+    command = 'vagrant global-status'
+    print('Showing all the machines of the system...')
+    proc = subprocess.getoutput(["powershell", "-command", f"{command}"])
+    print(proc)
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def select_file():
+    print('Please select the directory where the Vagrantfile is located at:  ')
+    root = tkinter.Tk()
+    root.withdraw()
+    root.wm_attributes('-topmost', 1)
+    folder_selected = fd.askdirectory()
+    root.destroy()
+    return folder_selected
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def create():
+    folder_selected = select_file()
+    os.chdir(f'{folder_selected}') 
+    for path in execute(["vagrant","up"]):
+        print(path, end="")
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def delete():
+    status()
+    print('------------------------------------------------')
+    id_name_machine = (input('ID of the machine to be deleted: '))
+    result = subprocess.getoutput(f"vagrant destroy {id_name_machine} -f")
+    print(result)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running, ty a lot
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
@@ -115,4 +115,5 @@ def repack():
     command = f"vagrant repack {box}"
     print (f'{command}')
     print ('testeo bansero')
+    
 check()
