@@ -60,8 +60,8 @@ def case():
         else:
             print ('Exiting...')
             exit
-    elif option == '4) Repack a virtual machine from VirtualBox':
-        repack()
+    elif option == '4) Pack a virtual machine from VirtualBox as a box ':
+        package()
         yesno = str(input('Do you want to exit the script? (y/n): '))
         if yesno == 'n':
             subprocess.run("cls",shell=True)
@@ -113,10 +113,10 @@ def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546
     if return_code:
         raise subprocess.CalledProcessError(return_code, cmd)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def repack():
-    print('hello')
-    box = "trusty64" 
-    command = f"vagrant package{box}"
-    print (f'{command}')
-    print ('testeo bansero')
+def package():
+    print('----------------------------------------------------------------------------')
+    box = str(input('Please enter the name of the VM (Only VirtualBox) you want to package as a .box: '))
+    name = str(input('Enter the name of the packaged box (without the .box format): '))
+    for path in execute(["vagrant","package","--base",f"{box}","--output",f"{name}"]):
+        print(path, end="")
 check()
