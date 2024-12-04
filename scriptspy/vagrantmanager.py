@@ -47,6 +47,10 @@ def case():
             
     elif option == '2) Create a Vagrant machine using a Vagrantfile':
         create()
+        yesno = str(input('Do you want to exit the script? (y/n): '))
+        if yesno == 'n':
+            subprocess.run("cls",shell=True)
+            case()
     elif option == '3) Delete a Vagrant machine (using the id)':
         delete()
         yesno = str(input('Do you want to exit the script? (y/n): '))
@@ -112,8 +116,7 @@ def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546
 def repack():
     print('hello')
     box = "trusty64" 
-    command = f"vagrant repack {box}"
+    command = f"vagrant package{box}"
     print (f'{command}')
     print ('testeo bansero')
-    
 check()
