@@ -114,8 +114,8 @@ def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546
         raise subprocess.CalledProcessError(return_code, cmd)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def package():
-    print('----------------------------------------------------------------------------')
-    box = str(input('Please enter the name of the VM (Only VirtualBox) you want to package as a .box: '))
+    print('--------------------------------------------------------------------------------------------------------------------------------')
+    box = str(input('Please enter the name (name in Vagrant NOT the name in the VB GUI) of the VM (Only VirtualBox) you want to package as a .box: '))
     name = str(input('Enter the name of the packaged box (without the .box format): '))
     for path in execute(["vagrant","package","--base",f"{box}","--output",f"{name}"]):
         print(path, end="")
