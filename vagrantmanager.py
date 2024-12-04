@@ -33,7 +33,7 @@ def check():
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def case():
     title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
-    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Repack a virtual machine from VirtualBox','5) Exit']
+    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Repack a virtual machine from VirtualBox as a box','5) Exit']
     option, index = pick(options, title, indicator='=>', default_index=0)
     if option == '1) List all the Vagrant machines':
         status()
@@ -114,6 +114,7 @@ def execute(cmd): #CREDIT TO tokland https://stackoverflow.com/questions/4417546
         raise subprocess.CalledProcessError(return_code, cmd)
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def package():
+    subprocess.run(["powershell", "-command", "cls"])
     print('--------------------------------------------------------------------------------------------------------------------------------')
     box = str(input('Please enter the name (name in Vagrant NOT the name in the VB GUI) of the VM (Only VirtualBox) you want to package as a .box: '))
     name = str(input('Enter the name of the packaged box (without the .box format): '))
