@@ -33,7 +33,7 @@ def check():
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------
 def case():
     title = '----Managment script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
-    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Repack a virtual machine from VirtualBox as a box','5) Exit']
+    options = ['1) List all the Vagrant machines', '2) Create a Vagrant machine using a Vagrantfile', '3) Delete a Vagrant machine (using the id)', '4) Pack a virtual machine from VirtualBox as a box','5) Exit']
     option, index = pick(options, title, indicator='=>', default_index=0)
     if option == '1) List all the Vagrant machines':
         status()
@@ -60,7 +60,7 @@ def case():
         else:
             print ('Exiting...')
             exit
-    elif option == '4) Pack a virtual machine from VirtualBox as a box ':
+    elif option == '4) Pack a virtual machine from VirtualBox as a box':
         package()
         yesno = str(input('Do you want to exit the script? (y/n): '))
         if yesno == 'n':
