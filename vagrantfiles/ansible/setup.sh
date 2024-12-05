@@ -8,5 +8,5 @@ mkdir -p /root/.ssh && cd /root/.ssh
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 echo -e "AuthorizedKeysFile .ssh/authorized_keys" >> /etc/ssh/sshd_config
 sudo ssh-keygen -t rsa -b 2048 -f id_rsa
-python3 -m http.server 80
+python3 -m http.server 80 &
 #all changes here
