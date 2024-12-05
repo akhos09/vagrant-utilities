@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt-get update -y
+sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install -y python3 python3-pip pipx
 python3 --version
 pipx ensurepath
