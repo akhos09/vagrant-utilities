@@ -19,7 +19,7 @@ The script and the config files requires the following libraries and tools:
 
 3. **pick**: Module needed for the menu. 
 
-4. **os**: Modulen needed to change the working path.
+4. **os**: Module needed to change the working path.
 
 5. **subproccess**: Module that executes the powershell commands of Vagramt.
 
