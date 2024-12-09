@@ -19,9 +19,9 @@ The script and the config files requires the following libraries and tools:
 
 3. **pick**: Module needed for the menu. 
 
-4. **os**: A module needed to change the working path.
+4. **os**: Modulen needed to change the working path.
 
-5. **subproccess**: A module to run the powershell commands of Vagramt.
+5. **subproccess**: Module that executes the powershell commands of Vagramt.
 
 6. **Tkinter**: For the file dialog to select the directory that contains the Vagrantfile.
 
