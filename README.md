@@ -74,10 +74,6 @@ The script and the config files requires the following libraries and tools:
 
 See the [LICENSE](LICENSE) file for details.
 
-## Credits
-
-For the ongoing output function made by the user tokland, ty a lot mate :) [StackOverflow](https://stackoverflow.com/questions/4417546/constantly-print-subprocess-output-while-process-is-running)
-
 ## Development
 
 I'm planning to adding new features. An option to choose different Hypervisors (VMWare, HyperV, etc.), a repacker for VMs that you have, and a plugin manager.
