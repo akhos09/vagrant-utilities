@@ -10,10 +10,9 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-#//TODO:automatize process of sshkeygen to all machines.pub
-      masternode.vm.provision "shell", path: "setup.sh"
+      masternode.vm.provision "shell", path: "setupmaster.sh"
     end
-    
+
 #SETTINGS FOR THE VMs (change any parameter as you want)-----------------------------------  
     config.vm.define "node1" do |node1|
       node1.vm.network "private_network", ip: "192.168.30.4", netmask: "255.255.255.0"
@@ -23,7 +22,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-      node1.vm.provision "shell", path: "keygen.sh"
+      node1.vm.provision "shell", path: "childsetup.sh"
     end
   
     config.vm.define "node2" do |node2|
@@ -34,7 +33,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-      node2.vm.provision "shell", path: "keygen.sh"
+      node2.vm.provision "shell", path: "childsetup.sh"
     end
   
     config.vm.define "node3" do |node3|
@@ -45,6 +44,6 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-      node3.vm.provision "shell", path: "keygen.sh"
+      node3.vm.provision "shell", path: "childsetup.sh"
     end
   end
