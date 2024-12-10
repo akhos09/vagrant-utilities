@@ -1,5 +1,5 @@
 # SCRIPT VAGRANT-MANAGEMENT
-#V1.1
+#V1.2
 from __future__ import print_function
 import os
 import sys
