@@ -13,7 +13,8 @@ cat id_rsa.pub >> authorized_keys
 chmod 600 authorized_keys
 #USER ANSIBLE CONFIG--------------------------------------------------------------
 useradd -m ansible -s /bin/bash
-passwd -d ansible
+echo "ansible:vagrant" | sudo chpasswd
+sudo chage -d 0 ansible
 mkdir -p /home/ansible/.ssh
 chmod 700 /home/ansible/.ssh
 mv /root/.ssh/id_rsa2.pub /home/ansible/.ssh

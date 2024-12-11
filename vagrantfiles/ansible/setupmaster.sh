@@ -12,7 +12,8 @@ echo -e "AuthorizedKeysFile .ssh/authorized_keys" >> /etc/ssh/sshd_config
 sudo ssh-keygen -t rsa -b 2048 -f id_rsa
 #SSH ANSIBLE USER
 useradd -m ansible -s /bin/bash
-passwd -d ansible
+echo "ansible:vagrant" | sudo chpasswd
+sudo chage -d 0 ansible
 sudo -u ansible mkdir -p /home/ansible/.ssh
 cd /home/ansible/.ssh
 sudo -u ansible ssh-keygen -f id_rsa2
