@@ -1,13 +1,26 @@
 #!/bin/bash
-#setup ssh
+#SSH CONFIG ROOT MASTERNODE
 sudo apt-get update && sudo apt-get upgrade -y
-echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
-echo -e "AuthorizedKeysFile .ssh/authorized_keys" >> /etc/ssh/sshd_config
-mkdir -p /root/.ssh && cd /root/.ssh
+echo "PubkeyAuthentication yes" | sudo tee -a /etc/ssh/sshd_config
+echo "AuthorizedKeysFile .ssh/authorized_keys" | sudo tee -a /etc/ssh/sshd_config
+sudo systemctl restart sshd
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+cd /root/.ssh
 wget http://192.168.30.3/id_rsa.pub
+wget http://192.168.30.3/id_rsa2.pub
 cat id_rsa.pub >> authorized_keys
-useradd -m ansible
-passwd -e ansible
-sudo -u ansible wget http://192.168.30.3/../../ansible/.ssh/id_rsa.pub
-cd /home/ansible/.ssh
-cat id_rsa.pub >> authorized_keys
+chmod 600 authorized_keys
+
+useradd -m ansible -s /bin/bash
+passwd -d ansible
+
+
+mkdir -p /home/ansible/.ssh
+chmod 700 /home/ansible/.ssh
+mv /root/.ssh/id_rsa2.pub /home/ansible/.ssh
+cat /home/ansible/.ssh/id_rsa2.pub >> /home/ansible/.ssh/authorized_keys
+chmod 600 /home/ansible/.ssh/authorized_keys
+chown -R ansible:ansible /home/ansible/.ssh
+echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+#ssh -i id_rsa2 ansible@192.168.30.4-6

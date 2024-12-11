@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
         vb.name = "nodemasteransible"
         vb.memory = "4096"
         vb.cpus = 2
+        vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
       end
       masternode.vm.provision "shell", path: "setupmaster.sh"
     end
