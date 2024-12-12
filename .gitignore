@@ -2,5 +2,5 @@
 *.drawio
 boxes
 *.log
-*test*
+test
 phpdevapache
