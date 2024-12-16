@@ -3,5 +3,5 @@
 boxes
 *.log
 *test*
-testansible
+testansible.sh
 phpdevapache
