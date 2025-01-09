@@ -22,4 +22,5 @@ cat /home/ansible/.ssh/id_rsa2.pub >> /home/ansible/.ssh/authorized_keys
 chmod 600 /home/ansible/.ssh/authorized_keys
 chown -R ansible:ansible /home/ansible/.ssh
 echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+sudo loadkeys es
 #ssh -i id_rsa2 ansible@192.168.30.4-6
