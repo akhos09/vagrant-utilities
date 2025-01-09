@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu/focal64"
 
-#SETTINGS FOR THE MASTER NODE---------------------------------------------------------------
+# SETTINGS FOR THE MASTER NODE----------------------------------------------------------------------------------------------------------------------------------
     config.vm.define "masternode" do |masternode|
       masternode.vm.network "private_network", ip: "192.168.30.3", netmask: "255.255.255.0"
       masternode.vm.hostname = "masternode"
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
       masternode.vm.provision "shell", path: "setupmaster.sh"
     end
 
-#SETTINGS FOR THE VMs (change any parameter as you want)-----------------------------------  
+# SETTINGS FOR THE VMs (change any parameter as you want)-------------------------------------------------------------------------------------------------------
     config.vm.define "node1" do |node1|
       node1.vm.network "private_network", ip: "192.168.30.4", netmask: "255.255.255.0"
       node1.vm.hostname = "node1"
