@@ -24,4 +24,4 @@ default_charset="ES"
 EOF
 sudo systemctl restart apache2
 echo "<?php phpinfo ();?>" > /var/www/html/version.php
-
+sudo loadkeys es

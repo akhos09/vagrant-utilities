@@ -24,6 +24,7 @@ python3 -m http.server 80 &
 mkdir -p /root/ansible/
 echo -e "192.168.30.4 node1\n192.168.30.5 node2\n192.168.30.6 node3" >> /etc/hosts
 echo -e "node1\nnode2\nnode3" > /root/ansible/machines
+echo -e "[clients]\nnode1\nnode2\nnode3" > /root/ansible/machines.ini
 sudo loadkeys es
 #ansible -i machines.txt -m shell -a "ls -la /root/ | grep 'file'" /with/bin/bash
 #ansible -i machines.txt -m command -a "ls -la /root/ | grep 'file'" /without/bin/bash
