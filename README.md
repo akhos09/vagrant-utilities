@@ -29,7 +29,7 @@ The script and the config files requires the following libraries and tools:
 
 1.**Clone this repository:**
 
-   ```
+   ```Bash
    git clone https://github.com/akhos09/vagrant-utilities
    cd vagrant-utilities
    ```
