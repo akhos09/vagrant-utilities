@@ -1,5 +1,6 @@
 #!/bin/bash
 #Initial commands that are a must-execute.
+sudo loadkeys es
 apt-get update && apt-get upgrade -y
 sudo echo "net.ipv4.ip_forward=1" > /etc/sysctl.conf
 sudo sysctl -p

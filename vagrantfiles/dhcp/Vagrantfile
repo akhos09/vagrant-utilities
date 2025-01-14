@@ -11,9 +11,9 @@ Vagrant.configure("2") do |config|
       vb.memory = "4096"
       vb.cpus = 4
     end
-    dhcp.vm.provision "shell", path: "initialconfig.sh", run: 'always'
-    #dhcp.vm.provision "shell", path: "guestadditions.sh"
-    dhcp.vm.provision "shell", path: "dhcpserver.sh"
+    dhcp.vm.provision "shell", path: "./scripts/initialconfig.sh", run: 'always'
+    #dhcp.vm.provision "shell", path: "./scripts/guestadditions.sh"
+    dhcp.vm.provision "shell", path: "./scripts/dhcpserver.sh"
     dhcp.vm.provision "shell", inline: <<SHELL
       sudo sysctl -p
       echo -e "All the steps for the dhcp server has finished."
@@ -31,6 +31,6 @@ config.vm.define "web" do |web|
     vb.memory = "4096"
     vb.cpus = 4
   end
-  web.vm.provision "shell", path: "services.sh"
+  web.vm.provision "shell", path: "./scripts/services.sh"
 end
 end
