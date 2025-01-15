@@ -3,4 +3,9 @@
 boxes
 *.log
 *test*
+testansible.sh
 phpdevapache
+ansibleconfigroot
+ansibleapuntes.md
+notes
+cosas
