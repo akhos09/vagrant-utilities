@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
         vb.cpus = 2
         vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
       end
-      masternode.vm.provision "shell", path: "setupmaster.sh"
+      masternode.vm.provision "shell", path: "./scripts/setupmaster.sh"
     end
 
 # SETTINGS FOR THE VMs (change any parameter as you want)-------------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-      node1.vm.provision "shell", path: "childsetup.sh"
+      node1.vm.provision "shell", path: "./scripts/childsetup.sh"
     end
   
     config.vm.define "node2" do |node2|
@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-      node2.vm.provision "shell", path: "childsetup.sh"
+      node2.vm.provision "shell", path: "./scripts/childsetup.sh"
     end
   
     config.vm.define "node3" do |node3|
@@ -46,6 +46,6 @@ Vagrant.configure("2") do |config|
         vb.memory = "4096"
         vb.cpus = 2
       end
-      node3.vm.provision "shell", path: "childsetup.sh"
+      node3.vm.provision "shell", path: "./scripts/childsetup.sh"
     end
   end
