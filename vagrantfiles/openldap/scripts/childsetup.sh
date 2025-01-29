@@ -8,7 +8,7 @@ mkdir -p /root/.ssh
 chmod 700 /root/.ssh
 cd /root/.ssh
 wget http://192.168.30.3/id_rsa.pub
-# wget http://192.168.30.3/id_rsa2.pub
+# wget http://192.168.30.3/id_rsa2.pub #SSH KEY FOR ANSIBLE USER
 cat id_rsa.pub >> authorized_keys
 chmod 600 authorized_keys
 # USER ANSIBLE CONFIG (delete the # if you want an independent and additional ansible user)---------------------------------------------------------------------
