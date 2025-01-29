@@ -1,7 +1,7 @@
 #!/bin/bash
 # ANSIBLE INSTALL-----------------------------------------------------------------------------------------------------------------------------------------------
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install -y python3 python3-pip pipx git
+sudo apt-get install -y python3 python3-pip pipx git ansible
 git clone https://github.com/akhos09/alacrittyforge.git
 python3 --version
 pipx ensurepath
@@ -26,7 +26,7 @@ cd /root/.ssh/
 python3 -m http.server 80 &
 echo -e "192.168.30.4 client1ldap\n192.168.30.5 client2ldap" >> /etc/hosts
 echo -e "[clients]\nclient1ldap\nclient2ldap" > /root/openldap/machines.ini
-echo -e "[defaults]\ninventory=./machines.ini" > /root/openldap/inventory.ini
+echo -e "[defaults]\ninventory=./machines.ini" > /root/openldap/ansible.cfg
 sudo loadkeys es
 # ansible -i machines.txt -m shell -a "ls -la /root/ | grep 'file'" /with/bin/bash
 # ansible -i machines.txt -m command -a "ls -la /root/ | grep 'file'" /without/bin/bash
