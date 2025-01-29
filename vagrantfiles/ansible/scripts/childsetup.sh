@@ -11,7 +11,6 @@ wget http://192.168.30.3/id_rsa.pub
 # wget http://192.168.30.3/id_rsa2.pub
 cat id_rsa.pub >> authorized_keys
 chmod 600 authorized_keys
-sudo loadkeys es
 # USER ANSIBLE CONFIG (delete the # if you want an independent and additional ansible user)---------------------------------------------------------------------
 # useradd -m ansible -s /bin/bash
 # echo "ansible:vagrant" | sudo chpasswd

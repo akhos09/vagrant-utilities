@@ -1,7 +1,7 @@
 #!/bin/bash
 # ANSIBLE INSTALL-----------------------------------------------------------------------------------------------------------------------------------------------
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install -y python3 python3-pip pipx git
+sudo apt-get install -y python3 python3-pip pipx git slapd ldap-utils
 git clone https://github.com/akhos09/alacrittyforge.git
 python3 --version
 pipx ensurepath
