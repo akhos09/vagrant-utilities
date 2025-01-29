@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
         vb.cpus = 4
         vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
       end
-    #   serverldap.vm.provision "shell", path: "./scripts/"
+      serverldap.vm.provision "shell", path: "./scripts/setup.sh"
     end
 
 # SETTINGS FOR THE CLIENTS (change any parameter as you want)-------------------------------------------------------------------------------------------------------
