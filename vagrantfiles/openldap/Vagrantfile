@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
         vb.cpus = 4
         vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
       end
-      serverldap.vm.provision "shell", path: "./scripts/setup.sh"
+      serverldap.vm.provision "shell", path: "./scripts/setupmaster.sh"
     end
 
 # SETTINGS FOR THE CLIENTS (change any parameter as you want)-------------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
         vb.memory = "2048"
         vb.cpus = 1
       end
-    #   client1ldap.vm.provision "shell", path: "./scripts/"
+      client1ldap.vm.provision "shell", path: "./scripts/childsetup.sh"
     end
   
     config.vm.define "client2ldap" do |client2ldap|
@@ -38,6 +38,6 @@ Vagrant.configure("2") do |config|
         vb.memory = "2048"
         vb.cpus = 1
       end
-    #   client2ldap.vm.provision "shell", path: "./scripts/"
+      client2ldap.vm.provision "shell", path: "./scripts/childsetup.sh"
     end
 end
