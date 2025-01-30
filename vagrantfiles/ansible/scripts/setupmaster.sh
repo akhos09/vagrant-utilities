@@ -4,7 +4,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 sudo apt-get install -y python3 python3-pip pipx
 python3 --version
 pipx ensurepath
-pip3 install ansible --user
+pip3 install ansible --user --no-warn-script-location
 # SSH ROOT------------------------------------------------------------------------------------------------------------------------------------------------------
 mkdir -p /root/.ssh && cd /root/.ssh
 echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config

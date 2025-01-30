@@ -1,6 +1,7 @@
 #!/bin/bash
 # SSH CONFIG ROOT MASTERNODE------------------------------------------------------------------------------------------------------------------------------------
 sudo apt-get update && sudo apt-get upgrade -y
+#sudo apt install #libnss-ldap libpam-ldap ldap-utils nscd -y
 echo "PubkeyAuthentication yes" | sudo tee -a /etc/ssh/sshd_config
 echo "AuthorizedKeysFile .ssh/authorized_keys" | sudo tee -a /etc/ssh/sshd_config
 sudo systemctl restart sshd

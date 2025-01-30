@@ -1,4 +1,5 @@
 #!/bin/bash
+#SCRIPT .LDIF FILES 
 
 read -p "Enter the name of the .ldif file you want to apply: " file
 read -p "Domain name (without ies or es, etc.): " dn1
@@ -19,3 +20,4 @@ else
     echo -e "$output"
 fi
 
+#made by github: @akhos09
