@@ -1,79 +1,93 @@
-
 # Vagrant Utilities
 
-A collection of configuration files and a script that are used with Vagrant on Windows 11.
+A collection of configuration files and a script designed to enhance Vagrant usage on Windows 11.
 
 ## Table of Contents
+
 - [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
 - [License](#license)
 
 ## Dependencies
 
-The script and the config files requires the following libraries and tools:
+Ensure the following tools and Python modules are installed:
 
-1. **Virtual Box**: Hypervisor used for the creation of the VMs.
-
-2. **Vagrant**: Obviously needed for all of this.
-
-3. **pick**: Module needed for the menu. 
-
-4. **os**: Module needed to change the working path.
-
-5. **subproccess**: Module that executes the powershell commands of Vagramt.
-
-6. **Tkinter**: For the file dialog to select the directory that contains the Vagrantfile.
+1. **VirtualBox**: Hypervisor used for creating virtual machines.
+2. **Vagrant**: Required for managing virtual environments.
+3. **Python**: Ensure Python is installed and added to your system's PATH.
+4. **Python Modules**:
+   - **pick**: For menu selection.
+   - **os**: To change the working directory.
+   - **subprocess**: To execute PowerShell commands via Vagrant.
+   - **tkinter**: For file dialog to select the directory containing the Vagrantfile.
 
 ## Installation
 
-1.**Clone this repository:**
+1. **Clone this repository**:
 
-   ```
-   git clone https://github.com/akhos09/vagrant-utilities
+   ```bash
+   git clone https://github.com/akhos09/vagrant-utilities.git
    cd vagrant-utilities
    ```
 
-## Usage
+2. **Install required Python modules**:
 
-1.**Install pick (or use the build-in function of the script that installs it)**
+   You can install the necessary modules using `pip`:
 
-   ```
+   ```bash
    pip install pick
    ```
 
-2. **Run the script**:
+   Note: `os`, `subprocess`, and `tkinter` are standard libraries included with Python.
 
-   Open a terminal or command prompt and navigate to the directory containing the script. Run the following command:
+## Usage
 
-   ```
+1. **Run the script**:
+
+   Open a terminal or command prompt, navigate to the directory containing the script, and execute:
+
+   ```bash
    python vagrantmanager.py
    ```
 
-3. **Import the Vagrant file**
+2. **Import the Vagrantfile**:
 
-   Select the Vagrantfile using the second option of the script.
+   Use the second option in the script to select and import the desired Vagrantfile.
 
-4. **List all the vagrant machines**
+3. **List all Vagrant machines**:
 
-   Use the first option of the script.
+   Choose the first option in the script to display all existing Vagrant machines.
 
-5. **Delete a vagrant machine**
+4. **Delete a Vagrant machine**:
 
-    Use the second option of the script and enter the ID of the machine (the one shown in the first option)
+   Select the second option in the script and enter the ID of the machine you wish to delete (as shown in the list from the first option).
+
+5. **Package a machine into a box**:
+
+   Use the "Package Machine" option to package an existing Vagrant machine into a reusable box file.
+
+6. **Manage Plugins**:
+
+   Use the "Plugin Manager" option to install, update, or remove Vagrant plugins easily from within the script.
 
 ## Troubleshooting
 
-   - Make sure that `Python` and `Vagrant` are installed and updated.
-   - If a VM already created has the same name as the one you want to create, change the name in the Vagrantfile or delete the VM with the same name. (This causes an error that doesn't let the creation of the new VM).
-   - Delete the network interfaces that you don't use anymore. This causes a lot of errors than can be fixed only doing that.
-   - If the installation gets stucked in the rename message (the one that says eth1 renamed as enp0s8 or something like that), try again. If it's getting still stucked check your Vagrantfile. This is caused because of bad syntax.
-   - If the folder of the VM wasn't deleted was because of the folder Logs. This happens when the VM is destroyed (vagrant destroy command) while is running. Delete the folder and try again (This happens with the creation of new VMs with the same name of another that already existed).
-  
-## License
-
-See the [LICENSE](LICENSE) file for details.
+- Ensure that `Python`, `VirtualBox`, and `Vagrant` are installed and up to date.
+- If a VM with the same name already exists, modify the name in the Vagrantfile or delete the existing VM to prevent conflicts.
+- Remove unused network interfaces to avoid potential errors.
+- If the installation stalls during the network interface renaming process (e.g., "eth1 renamed as enp0s8"), retry the operation. Persistent issues may indicate syntax errors in the Vagrantfile.
+- If a VM's folder isn't deleted due to residual logs (often occurring when a VM is destroyed while running), manually delete the folder and attempt the operation again.
 
 ## Development
 
-I'm planning to adding new features. An option to choose different Hypervisors (VMWare, HyperV, etc.), a repacker for VMs that you have, and a plugin manager.
+Planned features include:
+
+- Linux support
+- Making a .exe for the app.
+
+## License
+
+This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
