@@ -1,158 +1,214 @@
-# SCRIPT VAGRANT-MANAGEMENT
-#V1.2
-from __future__ import print_function
 import os
 import sys
-from pick import pick
 import subprocess
+from contextlib import contextmanager
+from pick import pick
 import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-TITLE = '----Management script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
-OPTIONS = [
-    '1) List all the Vagrant machines',
-    '2) Create a Vagrant machine using a Vagrantfile',
-    '3) Delete a Vagrant machine (using the id)',
-    '4) Pack a virtual machine from VirtualBox as a box',
-    '5) See all the options for the plugins of your Vagrant environment',
-    '6) Exit'
-]
-def clear():
-    subprocess.run("cls", shell=True)
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def check():
+
+@contextmanager
+def change_directory(target_dir):
+    current_dir = os.getcwd()
+    os.chdir(target_dir)
     try:
-        import pick
-        case()
-    except ImportError as e:
-        print('---------------------------------------------------------------------')
-        print('Module named "pick" not found. Please install pick (pip install pick)')
-        print('---------------------------------------------------------------------')
-        yesno = str(input('Do you want to install it? (y/n): '))
-        if yesno == 'y':
-            print('Updating pip...')
-            subprocess.run("python.exe -m pip install --upgrade pip",text=True)
-            print('-----------------------------')
-            print('Installing the module pick...')
-            subprocess.run("pip install pick",text=True)
-            print('---------------------------------------------------------------------')
-            print('Installation completed. Execute the script again with pick installed.')
+        yield
+    finally:
+        os.chdir(current_dir)
+
+class VagrantMachines:
+    def machines_status(self):
+        try:
+            print('Showing all the machines of the system...')
+            subprocess.run("vagrant global-status", check=True, text=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Error listing Vagrant machines: {e}")
+
+    def create_machine(self):
+        def select_file():
+            while True:
+                try:
+                    print("Please select the directory where the Vagrantfile is located:\n")
+                    root = tkinter.Tk()
+                    root.withdraw()  
+                    root.wm_attributes('-topmost', 1)  
+                    folder_selected = fd.askdirectory()
+                    root.destroy()
+
+                    if not folder_selected:
+                        print("Error: No directory selected. Please select a valid directory.\n")
+                        continue  
+
+                    if not os.path.exists(folder_selected):  
+                        print(f"Error: Selected directory does not exist: {folder_selected}\n")
+                        continue
+                    
+                    return folder_selected 
+                except Exception as e:
+                    print(f"An unexpected error occurred: {e}")
+
+        folder_selected = select_file()
+        
+        try:
+
+            with change_directory(folder_selected):
+                subprocess.run("vagrant up", text=True)
+                
+        except subprocess.CalledProcessError as e:
+            print(f"Error deploying the Vagrant machine: {e}")
+            print("Ensure the selected directory contains a valid Vagrantfile.")  
+
+    def delete_machine(self):
+        self.machines_status()
+        try:
+            print('-' * 48)
+            id_vm = (input('ID of the machine to be deleted: '))
+            subprocess.run(f"vagrant destroy {id_vm} -f", text=True)     
+        except subprocess.CalledProcessError as e:
+            print(f"Error deleting the Vagrant machine: {e}")
+
+    def pack_machine(self):
+        try:
+            print('-' * 130)
+            box_name = input('Please enter the name (name in the VB GUI) of the VM (Only VirtualBox) you want to package as a .box: ').strip()
+            if not box_name:
+                print("Error: You must enter a valid VirtualBox VM name.")
+                return self.pack_machine()  
+
+            print('-' * 130)
+            outputbox_name = input('Enter the name of the new box (without the .box format): ').strip()
+            if not outputbox_name:
+                print("Error: You must enter a valid name for the .box file.")
+                return self.pack_machine()  
+
+            command = f"vagrant package --base {box_name} --output {outputbox_name}.box"
+            subprocess.run(command, text=True, shell=True, check=True)
+            print(f"Successfully created {outputbox_name}.box (If the VM wasn't created before, it won't create the .box file.)")
+
+        except subprocess.CalledProcessError as e:
+            print("Error: Failed to package the VM. Check if the VirtualBox VM exists.")
+            print(f"Details: {e.stderr}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+
+class VagrantPlugins:
+    def list_plugins(self):
+        print('Showing all the plugins installed on the system...')
+        try:
+            subprocess.run('vagrant plugin list', text=True)      
+        except subprocess.CalledProcessError as e:
+            print(f"Error listing plugins of your Vagrant environment: {e}")  
+
+    def install_plugin(self):
+        plugin = str(input('Enter the name of the plugin you want to install: '))
+        try:
+            subprocess.run(f'vagrant plugin install {plugin}', text=True)      
+        except subprocess.CalledProcessError as e:
+            print(f"Error installing the plugin: {e}")  
+
+    def uninstall_plugin(self):
+        plugin = str(input('Enter the name of the plugin you want to uninstall: '))
+        try:
+            subprocess.run(f'vagrant plugin uninstall {plugin}', text=True)      
+        except subprocess.CalledProcessError as e:
+            print(f"Error uninstalling the plugin: {e}")  
+
+    def update_plugin(self):
+        plugin = str(input('Enter the name of the plugin you want to update: '))
+        try:
+            subprocess.run(f'vagrant plugin update {plugin}', text=True)      
+        except subprocess.CalledProcessError as e:
+            print(f"Error updating the plugin: {e}")  
+
+    def repair_plugin(self):
+        plugin = str(input('Enter the name of the plugin you want to repair: '))
+        try:
+            subprocess.run(f'vagrant plugin install {plugin}', text=True)      
+        except subprocess.CalledProcessError as e:
+            print(f"Error repairing the plugin: {e}")  
+
+class Menus:
+    def __init__(self):
+        self.vagrant_machines = VagrantMachines()
+        self.vagrant_plugins = VagrantPlugins()
+        
+    def prompt_exit(self):
+        option = input('Do you want to exit the script? (y/n): ').strip().lower()
+        if option == 'n':
+            self.main_menu()
         else:
             print('Exiting...')
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def prompt_exit():
-    option = input('Do you want to exit the script? (y/n): ').strip().lower()
-    if option == 'n':
-        clear()
-        case()
-    else:
-        print('Exiting...')
-        sys.exit()
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def case():
-    option, _ = pick(OPTIONS, TITLE, indicator='=>', default_index=0)
-    actions = {
-        '1) List all the Vagrant machines': status,
-        '2) Create a Vagrant machine using a Vagrantfile': create,
-        '3) Delete a Vagrant machine (using the id)': delete,
-        '4) Pack a virtual machine from VirtualBox as a box': package,
-        '5) See all the options for the plugins of your Vagrant environment': plugins,
-        '6) Exit': sys.exit
-    }
-    action = actions.get(option)
-    if action:
-        action()
-        if option != '5) Exit':
-            prompt_exit()
-    else:
-        print('Please select a correct option.')
-        case()
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def status():
-    clear()
-    print('Showing all the machines of the system...')
-    subprocess.run("vagrant global-status",text=True)
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def delete():
-    clear()
-    status()
-    print('------------------------------------------------')
-    id_name_machine = (input('ID of the machine to be deleted: '))
-    subprocess.run(f"vagrant destroy {id_name_machine} -f",text=True)
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def select_file():
-    subprocess.run(["powershell", "-command", "cls"])
-    print('Please select the directory where the Vagrantfile is located at:  ')
-    root = tkinter.Tk()
-    root.withdraw()
-    root.wm_attributes('-topmost', 1)
-    folder_selected = fd.askdirectory()
-    root.destroy()
-    return folder_selected
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def create():
-    clear()
-    folder_selected = select_file()
-    os.chdir(f'{folder_selected}') 
-    subprocess.run("vagrant up",text=True)
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def package():
-    clear()
-    print('--------------------------------------------------------------------------------------------------------------------------------')
-    box = str(input('Please enter the name (name in the VB GUI) of the VM (Only VirtualBox) you want to package as a .box: '))
-    print('--------------------------------------------------------------------------------------------------------------------------------')
-    name = str(input('Enter the name of the new packaged box (without the .box format): '))
-    subprocess.run(f"vagrant package --base {box} --output {name}.box",text=True)
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-def plugins():
-    def list():
-        print('Showing all the plugins installed on the system...')
-        subprocess.run('vagrant plugin list',text=True)
-#-------------------------------------------------------------------
-    def install():
-        plugin = str(input('Enter the name of the plugin you want to install: '))
-        subprocess.run(f'vagrant plugin install {plugin}',text=True)
-#------------------------------------------------------------------
-    def uninstall():
-        plugin = str(input('Enter the name of the plugin you want to uninstall: '))
-        subprocess.run(f'vagrant plugin uninstall {plugin}',text=True)
-#------------------------------------------------------------------
-    def update():
-        plugin = str(input('Enter the name of the plugin you want to update: '))
-        subprocess.run(f'vagrant plugin update {plugin}',text=True)
-#------------------------------------------------------------------
-    def repair():
-        plugin = str(input('Enter the name of the plugin you want to repair: '))
-        subprocess.run(f'vagrant plugin repair {plugin}',text=True)
-#------------------------------------------------------------------
-    clear()
-    TITLE = '----Options for plugins (Use ↑↓ and ENTER)----'
-    OPTIONS = [
-    '1) List all the plugins installed',
-    '2) Install a plugin',
-    '3) Uninstall a plugin',
-    '4) Update a plugin',
-    '5) Repair a plugin',
-    '6) Exit'
-    ]
-    option, _ = pick(OPTIONS, TITLE, indicator='=>', default_index=0)
-    actions = {
-        '1) List all the plugins installed': list,
-        '2) Install a plugin': install,
-        '3) Uninstall a plugin': uninstall,
-        '4) Update a plugin': update,
-        '5) Repair a plugin': repair,
-        '6) Exit': sys.exit
-    }
-    action = actions.get(option)
-    if action:
-        action()
-        if option != '6) Exit':
-            prompt_exit()
-    else:
-        print('Please select a correct option.')
-        case()
-#---------------------------------------------------------------------------------------------------------------------------------------------------------------
-check()
-#made by @akhos09 github
+            sys.exit()
+
+    def main_menu(self):
+        while True:
+            title = '----Management script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
+            options = [
+                '1) List all the Vagrant machines',
+                '2) Create a Vagrant machine using a Vagrantfile',
+                '3) Delete a Vagrant machine (using the id)',
+                '4) Pack a virtual machine from VirtualBox as a box',
+                '5) See all the options for the plugins of your Vagrant environment',
+                '6) Exit'
+            ]
+
+            option, _ = pick(options, title, indicator='=>', default_index=0)
+            actions = {
+                '1) List all the Vagrant machines': self.vagrant_machines.machines_status,
+                '2) Create a Vagrant machine using a Vagrantfile': self.vagrant_machines.create_machine,
+                '3) Delete a Vagrant machine (using the id)': self.vagrant_machines.delete_machine,
+                '4) Pack a virtual machine from VirtualBox as a box': self.vagrant_machines.pack_machine,
+                '5) See all the options for the plugins of your Vagrant environment': self.plugins_menu,
+                '6) Exit': self.prompt_exit
+                }
+            
+            action = actions.get(option)
+            if action:
+                action()
+                if option != '6) Exit':
+                    self.prompt_exit()
+            else:
+                print('Please select a correct option.')
+
+    def plugins_menu(self):
+        while True:
+            title = '----Options for plugins (Use ↑↓ and ENTER)----'
+            options = [
+            '1) List all the plugins installed',
+            '2) Install a plugin',
+            '3) Uninstall a plugin',
+            '4) Update a plugin',
+            '5) Repair a plugin',
+            '6) Exit'
+            ]
+            
+            option, _ = pick(options, title, indicator='=>', default_index=0)
+            actions = {
+                '1) List all the plugins installed': self.vagrant_plugins.list_plugins, 
+                '2) Install a plugin': self.vagrant_plugins.install_plugin,
+                '3) Uninstall a plugin': self.vagrant_plugins.uninstall_plugin,
+                '4) Update a plugin': self.vagrant_plugins.update_plugin,
+                '5) Repair a plugin': self.vagrant_plugins.repair_plugin,
+                '6) Exit': sys.exit
+            }
+            
+            action = actions.get(option)
+            if action:
+                action()
+                if option != '6) Exit':
+                    self.prompt_exit()
+            else:
+                print('Please select a correct option.')
+
+def main():
+    try:
+        import pick
+        app_menu = Menus()
+        app_menu.main_menu()
+    except ImportError as e:
+        print("""
+              Pick module (needed for the menu) not installed. Please install the module and execute the app again.
+              """)
+
+if __name__ == "__main__":
+    main()
