@@ -7,7 +7,7 @@ import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
 
-
+#Method stay stay into the app's directory (for the future akhos09)
 @contextmanager
 def change_directory(target_dir):
     current_dir = os.getcwd()
@@ -17,16 +17,16 @@ def change_directory(target_dir):
     finally:
         os.chdir(current_dir)
 
-
+#Defined methods for VMs (status,create,delete,pack)(subproccess)---------------------------------------------------------------------------------------------------
 class VagrantMachines:
-    def machines_status(self):
+    def machines_status(self): #Status--------------------------------------
         try:
             print("Showing all the machines of the system...")
             subprocess.run("vagrant global-status", check=True, text=True)
         except subprocess.CalledProcessError as e:
             print(f"Error listing Vagrant machines: {e}")
 
-    def create_machine(self):
+    def create_machine(self): #Create(tk window to select the folder)--------------------------------------
         def select_file():
             while True:
                 try:
@@ -65,7 +65,7 @@ class VagrantMachines:
             print(f"Error deploying the Vagrant machine: {e}")
             print("Ensure the selected directory contains a valid Vagrantfile.")
 
-    def delete_machine(self):
+    def delete_machine(self): #Delete-----------------------------------------------
         self.machines_status()
         try:
             print("-" * 48)
@@ -75,7 +75,7 @@ class VagrantMachines:
         except subprocess.CalledProcessError as e:
             print(f"Error deleting the Vagrant machine: {e}")
 
-    def pack_machine(self):
+    def pack_machine(self): #Pack--------------------------------------------------
         try:
             print("-" * 130)
             vm_name = input("Please enter the name (name in the VB GUI) of the VM (Only VirtualBox) you want to package as a .box: ").strip()
@@ -84,9 +84,7 @@ class VagrantMachines:
                 return self.pack_machine()
 
             print("-" * 130)
-            outputbox_name = input(
-                "Enter the name of the new box (without the .box format): "
-            ).strip()
+            outputbox_name = input("Enter the name of the new box (without the .box format): ").strip()
             if not outputbox_name:
                 print("Error: You must enter a valid name for the .box file.")
                 return self.pack_machine()
@@ -101,9 +99,9 @@ class VagrantMachines:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
-
+#Defined methods for plugins (list,install,uninstall,update,repair)(subproccess)---------------------------------------------------------------------------------------------------
 class VagrantPlugins:
-    def list_plugins(self):
+    def list_plugins(self): #List--------------------------------------------
         print("Showing all the plugins installed on the system...")
         try:
             subprocess.run("vagrant plugin list", text=True)
@@ -111,7 +109,7 @@ class VagrantPlugins:
         except subprocess.CalledProcessError as e:
             print(f"Error listing plugins of your Vagrant environment: {e}")
 
-    def install_plugin(self):
+    def install_plugin(self): #Install--------------------------------------------
         plugin = str(input("Enter the name of the plugin you want to install: "))
         try:
             subprocess.run(f"vagrant plugin install {plugin}", text=True)
@@ -119,7 +117,7 @@ class VagrantPlugins:
         except subprocess.CalledProcessError as e:
             print(f"Error installing the plugin: {e}")
 
-    def uninstall_plugin(self):
+    def uninstall_plugin(self): #Uninstall--------------------------------------------
         plugin = str(input("Enter the name of the plugin you want to uninstall: "))
         try:
             subprocess.run(f"vagrant plugin uninstall {plugin}", text=True)
@@ -127,7 +125,7 @@ class VagrantPlugins:
         except subprocess.CalledProcessError as e:
             print(f"Error uninstalling the plugin: {e}")
 
-    def update_plugin(self):
+    def update_plugin(self): #Update--------------------------------------------
         plugin = str(input("Enter the name of the plugin you want to update: "))
         try:
             subprocess.run(f"vagrant plugin update {plugin}", text=True)
@@ -135,7 +133,7 @@ class VagrantPlugins:
         except subprocess.CalledProcessError as e:
             print(f"Error updating the plugin: {e}")
 
-    def repair_plugin(self):
+    def repair_plugin(self): #Repair--------------------------------------------
         plugin = str(input("Enter the name of the plugin you want to repair: "))
         try:
             subprocess.run(f"vagrant plugin install {plugin}", text=True)
@@ -144,12 +142,12 @@ class VagrantPlugins:
             print(f"Error repairing the plugin: {e}")
 
 
-class Menus:
-    def __init__(self):
+class Menus: #Defined the two menus for the app (module pick)-------------------------------
+    def __init__(self): #Instanced the two classes
         self.vagrant_machines = VagrantMachines()
         self.vagrant_plugins = VagrantPlugins()
 
-    def prompt_exit(self):
+    def prompt_exit(self): #Selector to stay in the app------------------------------------
         option = input("Do you want to exit the script? (y/n): ").strip().lower()
         if option == "n":
             self.main_menu()
@@ -157,7 +155,7 @@ class Menus:
             print("Exiting...")
             sys.exit()
 
-    def main_menu(self):
+    def main_menu(self): #Main menu--------------------------------------------------------
         while True:
             title = "----Management script for Vagrant (Use ↑↓ and ENTER)---- @akhos09"
             options = [
@@ -176,7 +174,7 @@ class Menus:
                 "3) Delete a Vagrant machine (using the id)": self.vagrant_machines.delete_machine,
                 "4) Pack a virtual machine from VirtualBox as a box": self.vagrant_machines.pack_machine,
                 "5) See all the options for the plugins of your Vagrant environment": self.plugins_menu,
-                "6) Exit": self.prompt_exit,
+                "6) Exit": sys.exit,
             }
 
             action = actions.get(option)
@@ -187,7 +185,7 @@ class Menus:
             else:
                 print("Please select a correct option.")
 
-    def plugins_menu(self):
+    def plugins_menu(self): #Plugins menu--------------------------------------------------------
         while True:
             title = "----Options for plugins (Use ↑↓ and ENTER)----"
             options = [
@@ -218,7 +216,7 @@ class Menus:
                 print("Please select a correct option.")
 
 
-def main():
+def main(): #Main function of the code (check if pick is installed)-------------------------------------
     try:
         import pick
         app_menu = Menus()
