@@ -1,12 +1,20 @@
-# VAGRANT-MANAGER
-#V1.2.3
 import os
 import sys
-from pick import pick
 import subprocess
+from contextlib import contextmanager
+from pick import pick
 import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
+
+@contextmanager
+def change_directory(target_dir):
+    current_dir = os.getcwd()
+    os.chdir(target_dir)
+    try:
+        yield
+    finally:
+        os.chdir(current_dir)
 
 class VagrantMachines:
     def machines_status(self):
@@ -15,12 +23,12 @@ class VagrantMachines:
             subprocess.run("vagrant global-status", check=True, text=True)
         except subprocess.CalledProcessError as e:
             print(f"Error listing Vagrant machines: {e}")
-#------------------------------------------------------------------------------------------------------------------------        
+
     def create_machine(self):
         def select_file():
-            while True: 
+            while True:
                 try:
-                    print('Please select the directory where the Vagrantfile is located:')
+                    print("Please select the directory where the Vagrantfile is located:\n")
                     root = tkinter.Tk()
                     root.withdraw()  
                     root.wm_attributes('-topmost', 1)  
@@ -28,11 +36,11 @@ class VagrantMachines:
                     root.destroy()
 
                     if not folder_selected:
-                        print("Error: No directory selected. Please select a valid directory.")
+                        print("Error: No directory selected. Please select a valid directory.\n")
                         continue  
 
                     if not os.path.exists(folder_selected):  
-                        print(f"Error: Selected directory does not exist: {folder_selected}")
+                        print(f"Error: Selected directory does not exist: {folder_selected}\n")
                         continue
                     
                     return folder_selected 
@@ -40,23 +48,24 @@ class VagrantMachines:
                     print(f"An unexpected error occurred: {e}")
 
         folder_selected = select_file()
-        os.chdir(f'{folder_selected}')
-         
+        
         try:
-            subprocess.run("vagrant up",text=True)
+
+            with change_directory(folder_selected):
+                subprocess.run("vagrant up", text=True)
+                
         except subprocess.CalledProcessError as e:
             print(f"Error deploying the Vagrant machine: {e}")
-            
-#------------------------------------------------------------------------------------------------------------------------        
+            print("Ensure the selected directory contains a valid Vagrantfile.")  
+
     def delete_machine(self):
         self.machines_status()
         try:
-            print('------------------------------------------------')
+            print('-' * 48)
             id_vm = (input('ID of the machine to be deleted: '))
-            subprocess.run(f"vagrant destroy {id_vm} -f",text=True)     
+            subprocess.run(f"vagrant destroy {id_vm} -f", text=True)     
         except subprocess.CalledProcessError as e:
             print(f"Error deleting the Vagrant machine: {e}")
-#------------------------------------------------------------------------------------------------------------------------
 
     def pack_machine(self):
         try:
@@ -82,45 +91,41 @@ class VagrantMachines:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
-
-
 class VagrantPlugins:
     def list_plugins(self):
         print('Showing all the plugins installed on the system...')
         try:
-            subprocess.run('vagrant plugin list',text=True)      
+            subprocess.run('vagrant plugin list', text=True)      
         except subprocess.CalledProcessError as e:
             print(f"Error listing plugins of your Vagrant environment: {e}")  
-#------------------------------------------------------------------------------------------------------------------------
+
     def install_plugin(self):
         plugin = str(input('Enter the name of the plugin you want to install: '))
         try:
-            subprocess.run(f'vagrant plugin install {plugin}',text=True)      
+            subprocess.run(f'vagrant plugin install {plugin}', text=True)      
         except subprocess.CalledProcessError as e:
             print(f"Error installing the plugin: {e}")  
-#------------------------------------------------------------------------------------------------------------------------
+
     def uninstall_plugin(self):
         plugin = str(input('Enter the name of the plugin you want to uninstall: '))
         try:
-            subprocess.run(f'vagrant plugin uninstall {plugin}',text=True)      
+            subprocess.run(f'vagrant plugin uninstall {plugin}', text=True)      
         except subprocess.CalledProcessError as e:
             print(f"Error uninstalling the plugin: {e}")  
-#------------------------------------------------------------------------------------------------------------------------
+
     def update_plugin(self):
         plugin = str(input('Enter the name of the plugin you want to update: '))
         try:
-            subprocess.run(f'vagrant plugin update {plugin}',text=True)      
+            subprocess.run(f'vagrant plugin update {plugin}', text=True)      
         except subprocess.CalledProcessError as e:
             print(f"Error updating the plugin: {e}")  
-#------------------------------------------------------------------------------------------------------------------------
+
     def repair_plugin(self):
         plugin = str(input('Enter the name of the plugin you want to repair: '))
         try:
-            subprocess.run(f'vagrant plugin install {plugin}',text=True)      
+            subprocess.run(f'vagrant plugin install {plugin}', text=True)      
         except subprocess.CalledProcessError as e:
             print(f"Error repairing the plugin: {e}")  
-#------------------------------------------------------------------------------------------------------------------------
-
 
 class Menus:
     def __init__(self):
@@ -134,7 +139,7 @@ class Menus:
         else:
             print('Exiting...')
             sys.exit()
-#------------------------------------------------------------------------------------------------------------------------
+
     def main_menu(self):
         while True:
             title = '----Management script for Vagrant (Use ↑↓ and ENTER)---- @akhos09'
@@ -163,8 +168,8 @@ class Menus:
                 if option != '6) Exit':
                     self.prompt_exit()
             else:
-                    print('Please select a correct option.')
-#------------------------------------------------------------------------------------------------------------------------
+                print('Please select a correct option.')
+
     def plugins_menu(self):
         while True:
             title = '----Options for plugins (Use ↑↓ and ENTER)----'
@@ -194,7 +199,16 @@ class Menus:
                     self.prompt_exit()
             else:
                 print('Please select a correct option.')
-#------------------------------------------------------------------------------------------------------------------------
 
-initial_menu = Menus()
-initial_menu.main_menu()
+def main():
+    try:
+        import pick
+        app_menu = Menus()
+        app_menu.main_menu()
+    except ImportError as e:
+        print("""
+              Pick module (needed for the menu) not installed. Please install the module and execute the app again.
+              """)
+
+if __name__ == "__main__":
+    main()
