@@ -29,7 +29,8 @@ class VagrantMachines:
 
     def create_machine(self): #Create(tk window to select the folder)--------------------------------------
         def select_file(): #Folder selector with tk
-            while True:
+            counter = 3 #Counter made just in case none directory is selected.
+            while counter >= 0:
                 try:
                     print(
                         "Please select the directory where the Vagrantfile is located:\n"
@@ -44,6 +45,7 @@ class VagrantMachines:
                         print(
                             "Error: No directory selected. Please select a valid directory.\n"
                         )
+                        counter = counter - 1
                         continue
 
                     if not os.path.exists(folder_selected):
