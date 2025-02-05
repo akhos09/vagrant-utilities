@@ -180,8 +180,7 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
             action = actions.get(option)
             if action:
                 action()
-                if option != "6) Exit":
-                    self.prompt_exit()
+                self.prompt_exit()
             else:
                 print("Please select a correct option.")
 
@@ -210,11 +209,9 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
             action = actions.get(option)
             if action:
                 action()
-                if option != "6) Exit":
-                    self.prompt_exit()
+                self.prompt_exit()
             else:
                 print("Please select a correct option.")
-
 
 def main(): #Main function of the code (check if pick is installed)-------------------------------------
     try:
