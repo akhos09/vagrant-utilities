@@ -72,7 +72,7 @@ class VagrantMachines:
         self.machines_status()
         try:
             print("-" * 48)
-            id_vm = input("ID of the machine to be deleted: ")
+            id_vm = input("ID of the machine you want to delete: ")
             subprocess.run(f"vagrant destroy {id_vm} -f", text=True)
 
         except subprocess.CalledProcessError as e:
