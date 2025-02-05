@@ -17,6 +17,7 @@ def change_directory(target_dir):
     finally:
         os.chdir(current_dir)
 
+
 #Defined methods for VMs (status,create,delete,pack)(subproccess)---------------------------------------------------------------------------------------------------
 class VagrantMachines:
     def machines_status(self): #Status--------------------------------------
@@ -27,7 +28,7 @@ class VagrantMachines:
             print(f"Error listing Vagrant machines: {e}")
 
     def create_machine(self): #Create(tk window to select the folder)--------------------------------------
-        def select_file():
+        def select_file(): #Folder selector with tk
             while True:
                 try:
                     print(
@@ -57,7 +58,7 @@ class VagrantMachines:
 
         folder_selected = select_file()
 
-        try:
+        try: #To go back to the script's folder after executing the command.
             with change_directory(folder_selected):
                 subprocess.run("vagrant up", text=True)
 
@@ -98,6 +99,7 @@ class VagrantMachines:
             print(f"Details: {e.stderr}")
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
+
 
 #Defined methods for plugins (list,install,uninstall,update,repair)(subproccess)---------------------------------------------------------------------------------------------------
 class VagrantPlugins:
@@ -143,7 +145,7 @@ class VagrantPlugins:
 
 
 class Menus: #Defined the two menus for the app (module pick)-------------------------------
-    def __init__(self): #Instanced the two classes
+    def __init__(self): #Instance the two classes
         self.vagrant_machines = VagrantMachines()
         self.vagrant_plugins = VagrantPlugins()
 
@@ -193,7 +195,8 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
                 "3) Uninstall a plugin",
                 "4) Update a plugin",
                 "5) Repair a plugin",
-                "6) Exit",
+                "6) Go back to the main menu",
+                "7) Exit",
             ]
 
             option, _ = pick(options, title, indicator="=>", default_index=0)
@@ -203,7 +206,8 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
                 "3) Uninstall a plugin": self.vagrant_plugins.uninstall_plugin,
                 "4) Update a plugin": self.vagrant_plugins.update_plugin,
                 "5) Repair a plugin": self.vagrant_plugins.repair_plugin,
-                "6) Exit": sys.exit,
+                "6) Go back to the main menu": self.main_menu,
+                "7) Exit": sys.exit,
             }
 
             action = actions.get(option)
@@ -212,6 +216,7 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
                 self.prompt_exit()
             else:
                 print("Please select a correct option.")
+
 
 def main(): #Main function of the code (check if pick is installed)-------------------------------------
     try:
@@ -222,7 +227,7 @@ def main(): #Main function of the code (check if pick is installed)-------------
     except ImportError as e:
         print(
             """
-              Pick module (needed for the menu) not installed. Please install the module and execute the app again.
+              Pick module (needed for the menu) not installed. Please install the module (with pip) and execute the app again.
             """
         )
 
