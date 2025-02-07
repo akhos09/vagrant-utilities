@@ -7,7 +7,7 @@ import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
 
-#Method stay stay into the app's directory (for the future akhos09)
+#Method to stay into the app's directory (for the future akhos09)
 @contextmanager
 def change_directory(target_dir):
     current_dir = os.getcwd()
@@ -162,14 +162,14 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
     def main_menu(self): #Main menu--------------------------------------------------------
         while True:
             title = "----Management script for Vagrant (Use ↑↓ and ENTER)---- @akhos09"
-            options = [
+            options = (
                 "1) List all the Vagrant machines",
                 "2) Create a Vagrant machine using a Vagrantfile",
                 "3) Delete a Vagrant machine (using the id)",
                 "4) Pack a virtual machine from VirtualBox as a box",
                 "5) See all the options for the plugins of your Vagrant environment",
                 "6) Exit",
-            ]
+            )
 
             option, _ = pick(options, title, indicator="=>", default_index=0)
             actions = {
