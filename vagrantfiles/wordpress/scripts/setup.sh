@@ -47,7 +47,7 @@ sudo tee /etc/apache2/sites-available/wppablo.net.conf > /dev/null << 'EOF'
 
     SSLCertificateKeyFile /etc/ssl/certs/server.key
 
-    <Directory /var/www/www.wppablo.net>
+    <Directory /var/www/wppablo.net>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
