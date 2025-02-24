@@ -24,9 +24,8 @@ chmod 700 /root/.ssh
 echo -e "192.168.30.6 client1ldap" >> /etc/hosts
 echo -e "[clients]\nclient1ldap" > /root/openldap/machines.ini
 cd /root/.ssh/
-nohup python3 -m http.server 80 &
+python3 -m http.server 80 &
 # echo -e "[defaults]\ninventory=./machines.ini" > /root/openldap/ansible.cfg
-
 # ansible -i machines.txt -m shell -a "ls -la /root/ | grep 'file'" /with/bin/bash
 # ansible -i machines.txt -m command -a "ls -la /root/ | grep 'file'" /without/bin/bash
 # all changes here
