@@ -81,31 +81,36 @@ sudo systemctl enable node_exporter
 
 sudo tee /etc/prometheus/prometheus.yml > /dev/null << 'EOF'
 global:
-  scrape_interval: 5s  # How often to scrape targets by default
-  evaluation_interval: 15s  # How often to evaluate rules by default
+  scrape_interval: 5s 
+  evaluation_interval: 15s
 
-# Alerting configuration
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
           # - alertmanager:9093
 
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
-rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
-
-# A scrape configuration containing exactly one endpoint to scrape:
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'node_exporter'
+  - job_name: 'prom_node_exporter'
     static_configs:
       - targets: ['localhost:9100']
+  
+  - job_name: 'ldap_node_exporter'
+    static_configs:
+      - targets: ['192.168.30.3:9100']
+
+  - job_name: 'grafana_node_exporter'
+    static_configs:
+      - targets: ['192.168.30.4:9100']
+
+  - job_name: 'webserver_node_exporter'
+    static_configs:
+      - targets: ['192.168.30.7:9100']
+
 
   # Example of another scrape config for a different exporter
   # - job_name: 'another_exporter'
