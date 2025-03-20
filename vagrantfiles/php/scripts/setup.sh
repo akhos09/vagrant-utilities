@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt-get install apache2 php -y
+sudo apt-get install apache2 php mysql-server php-mbstring php-zip php-gd php-json php-curl openssl libapache2-mod-php php-mysql -y
 sudo reboot
 sudo tee /etc/php/8.3/apache2/php.ini > /dev/null << 'EOF'
 display_errors = On
