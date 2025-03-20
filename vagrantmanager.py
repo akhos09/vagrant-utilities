@@ -2,10 +2,20 @@ import os
 import sys
 import subprocess
 from contextlib import contextmanager
-from pick import pick
 import tkinter
 from tkinter import filedialog as fd
 from tkinter import Tk
+
+try:
+    from pick import pick
+except ImportError as e:
+    print(
+        f"""
+            Pick module (needed for the menu) not installed. Please install the module (with pip) and run again the app.\n{e}
+        """
+         )
+    sys.exit(1)
+
 
 #Method to stay into the app's directory (for the future akhos09)
 @contextmanager
@@ -221,17 +231,8 @@ class Menus: #Defined the two menus for the app (module pick)-------------------
 
 
 def main(): #Main function of the code (check if pick is installed)-------------------------------------
-    try:
-        import pick
-        app_menu = Menus()
-        app_menu.main_menu()
-
-    except ImportError as e:
-        print(
-            """
-              Pick module (needed for the menu) not installed. Please install the module (with pip) and execute the app again.
-            """
-        )
+    app_menu = Menus()
+    app_menu.main_menu()
 
 if __name__ == "__main__":
     main()
