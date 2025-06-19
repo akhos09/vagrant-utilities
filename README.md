@@ -2,6 +2,10 @@
 
 A collection of configuration files and a script designed to enhance Vagrant usage on Windows 11.
 
+**Check out my newest project of Vagrant, does the same as this one but with GUI and generates Vagrantfiles with a lot of parameters of your choice.**
+
+[XenoCore](https://github.com/akhos09/XenoCore)
+
 ## Table of Contents
 
 - [Dependencies](#dependencies)
